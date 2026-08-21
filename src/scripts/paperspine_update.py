@@ -348,11 +348,13 @@ def install_target(root: Path, target: str) -> list[str]:
 
 
 def resolve_claude_settings_dir() -> Path:
-    """Resolve the Claude settings directory, honoring the install-dir override.
+    """Resolve the host settings directory, honoring the install-dir override.
 
-    This must follow PAPERSPINE_CLAUDE_SKILLS_DIR so that callers (and tests)
-    that redirect installs away from the real home never mutate the developer's
-    actual ~/.claude/settings.json.
+    This must follow PAPERSPINE_CLAUDE_SKILLS_DIR (or the Mavis install
+    equivalent) so that callers (and tests) that redirect installs away from
+    the real home never mutate the developer's actual settings file. In the
+    Mavis port, the function is a no-op fallback: the resolved dir is only
+    used to clean stale `skillOverrides`, which Mavis does not use.
     """
     skills_dir = Path(
         os.environ.get("PAPERSPINE_CLAUDE_SKILLS_DIR", Path.home() / ".claude" / "skills")

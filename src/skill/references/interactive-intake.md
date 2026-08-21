@@ -21,28 +21,22 @@ Ask these fields in order:
 
 ## Supported Command-Line UI
 
-Claude Code and Codex do not guarantee a native graphical picker for skills.
-The supported PaperSpine UI is the bundled terminal wizard. In Claude Code, use
-the `/paperspine` command when installed, or launch the PowerShell wrapper so
-the wizard runs in a real interactive terminal window:
+Mavis does not provide a native graphical picker for skills. The supported
+PaperSpine UI is the bundled terminal wizard. Load the `paper-spine` skill and
+launch the shell wrapper so the wizard runs in a real interactive terminal
+window:
 
-```powershell
-# Pass the ABSOLUTE path to the installed launcher. Codex/Claude run from the
-# user's project folder, where `scripts/` does not exist, so a relative path is
-# the most common reason the UI window never opens. Resolve the install dir:
-$launcher = @(
-  "$env:USERPROFILE\.codex\skills\paper-spine\scripts\launch_paperspine_ui.ps1",
-  "$env:USERPROFILE\.claude\skills\paper-spine\scripts\launch_paperspine_ui.ps1",
-  "$env:USERPROFILE\AppData\Local\hermes\skills\academic-writing\paper-spine\scripts\launch_paperspine_ui.ps1"
-) | Where-Object { Test-Path $_ } | Select-Object -First 1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File $launcher -OutputDir paper_rewriting_output
+```bash
+# Resolve the install dir under the Mavis skills root:
+LAUNCHER="$HOME/.minimax/agents/mavis/skills/paper-spine/scripts/launch_paperspine_ui.sh"
+chmod +x "$LAUNCHER" 2>/dev/null || true
+bash "$LAUNCHER" "paper_rewriting_output"
 ```
 
 For a user-run terminal, the direct wizard command is:
 
 ```bash
-WIZARD="$HOME/.codex/skills/paper-spine/scripts/intake_wizard.py"
-[ -f "$WIZARD" ] || WIZARD="$HOME/.claude/skills/paper-spine/scripts/intake_wizard.py"
+WIZARD="$HOME/.minimax/agents/mavis/skills/paper-spine/scripts/intake_wizard.py"
 python "$WIZARD" --output-dir paper_rewriting_output
 ```
 
@@ -54,8 +48,7 @@ screen, and an edit loop before writing config files.
 For first-time setup or changing interface language:
 
 ```bash
-WIZARD="$HOME/.codex/skills/paper-spine/scripts/intake_wizard.py"
-[ -f "$WIZARD" ] || WIZARD="$HOME/.claude/skills/paper-spine/scripts/intake_wizard.py"
+WIZARD="$HOME/.minimax/agents/mavis/skills/paper-spine/scripts/intake_wizard.py"
 python "$WIZARD" --setup-global --output-dir paper_rewriting_output
 ```
 

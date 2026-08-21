@@ -154,21 +154,23 @@ not declare completion.
 
 ### Stage 1 — Intake / Configuration
 
-If configuration is missing or incomplete, run the terminal wizard from
-the intake UI via the absolute installed launcher
-`$env:USERPROFILE\.claude\skills\paper-spine\scripts\launch_paperspine_ui.ps1`
-(or the `.codex` equivalent, or
-`$HOME/.codex/skills/paper-spine/scripts/launch_paperspine_ui.sh` on bash); do
-not ask the user to hand-write JSON or answer a long plain chat checklist when a
-terminal is available. In Claude Code, `/paperspine` is the preferred entry: it launches
-the external intake window automatically when configuration is missing.
+If configuration is missing or incomplete, run the terminal wizard via the
+installed launcher (macOS/Linux):
+\`\`\`bash
+bash $HOME/.minimax/agents/mavis/skills/paper-spine/scripts/launch_paperspine_ui.sh paper_rewriting_output
+\`\`\`
+or directly invoke the Python wizard:
+\`\`\`bash
+python $HOME/.minimax/agents/mavis/skills/paper-spine/scripts/intake_wizard.py --output-dir paper_rewriting_output
+\`\`\`
+Do not ask the user to hand-write JSON or answer a long plain chat checklist when
+a terminal is available. The wizard writes
+`paper_rewriting_output/paper_spine_config.json` after the user finishes the
+menu flow.
 
-**Codex hard constraint (do not skip):** when
-`paper_rewriting_output/paper_spine_config.json` is missing, the FIRST tool
-action after reading this skill MUST be to run the absolute
-`launch_paperspine_ui.ps1` (resolve under `~/.codex/skills/...` or
-`~/.claude/skills/...`) with `sandbox_permissions: require_escalated` so the
-window can open.
+**Mavis entry:** load this skill via `skill({ name: "paper-spine" })`. The
+orchestrator will detect missing config on Stage 1 and ask you to launch the
+wizard (or fall back to the `intake_wizard.py` Python entry directly).
 
 **Gate:**
 ```bash

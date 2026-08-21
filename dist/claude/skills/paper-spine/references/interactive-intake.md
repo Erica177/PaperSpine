@@ -42,7 +42,7 @@ For a user-run terminal, the direct wizard command is:
 
 ```bash
 WIZARD="$HOME/.codex/skills/paper-spine/scripts/intake_wizard.py"
-[ -f "$WIZARD" ] || WIZARD="$HOME/.claude/skills/paper-spine/scripts/intake_wizard.py"
+[ -f "$WIZARD" ] || WIZARD="$HOME/.minimax/agents/mavis/skills/paper-spine/scripts/intake_wizard.py"
 python "$WIZARD" --output-dir paper_rewriting_output
 ```
 
@@ -55,7 +55,7 @@ For first-time setup or changing interface language:
 
 ```bash
 WIZARD="$HOME/.codex/skills/paper-spine/scripts/intake_wizard.py"
-[ -f "$WIZARD" ] || WIZARD="$HOME/.claude/skills/paper-spine/scripts/intake_wizard.py"
+[ -f "$WIZARD" ] || WIZARD="$HOME/.minimax/agents/mavis/skills/paper-spine/scripts/intake_wizard.py"
 python "$WIZARD" --setup-global --output-dir paper_rewriting_output
 ```
 
